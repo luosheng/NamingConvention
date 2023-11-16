@@ -26,4 +26,12 @@ final class NamingConventionTests: XCTestCase {
         XCTAssertEqual(processor.segmented(text: "kebab-case"), ["kebab", "case"])
         XCTAssertEqual(processor.connected(segments: ["kebab", "case"]), "kebab-case")
     }
+
+    func testSnakeCase() throws {
+        let processor = SnakeCaseProcessor()
+        XCTAssertTrue(processor.match(text: "snake_case"))
+        XCTAssertFalse(processor.match(text: "PascalCase"))
+        XCTAssertEqual(processor.segmented(text: "snake_case"), ["snake", "case"])
+        XCTAssertEqual(processor.connected(segments: ["snake", "case"]), "snake_case")
+    }
 }
