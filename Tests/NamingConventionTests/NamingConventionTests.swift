@@ -1,4 +1,5 @@
 import XCTest
+
 @testable import NamingConvention
 
 final class NamingConventionTests: XCTestCase {
@@ -16,5 +17,13 @@ final class NamingConventionTests: XCTestCase {
         XCTAssertFalse(processor.match(text: "PascalCase"))
         XCTAssertEqual(processor.segmented(text: "camelCase"), ["camel", "case"])
         XCTAssertEqual(processor.connected(segments: ["camel", "case"]), "camelCase")
+    }
+
+    func testKebabCase() throws {
+        let processor = KebabCaseProcessor()
+        XCTAssertTrue(processor.match(text: "kebab-case"))
+        XCTAssertFalse(processor.match(text: "PascalCase"))
+        XCTAssertEqual(processor.segmented(text: "kebab-case"), ["kebab", "case"])
+        XCTAssertEqual(processor.connected(segments: ["kebab", "case"]), "kebab-case")
     }
 }
