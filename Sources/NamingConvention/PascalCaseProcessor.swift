@@ -7,11 +7,12 @@
 
 import Foundation
 
-final class PascalCaseProcessor: Processor {
+struct PascalCaseProcessor: Processor {
 
     func match(text: String) -> Bool {
         let regex = try! NSRegularExpression(pattern: "^[A-Z][a-z0-9A-Z]*")
-        let result = regex.firstMatch(in: text, range: NSRange(location: 0, length: text.utf16.count))
+        let result = regex.firstMatch(
+            in: text, range: NSRange(location: 0, length: text.utf16.count))
         return result != nil
     }
 

@@ -1,6 +1,6 @@
 import Foundation
 
-final class CamelCaseProcessor: Processor {
+struct CamelCaseProcessor: Processor {
     func match(text: String) -> Bool {
         let regex = try! NSRegularExpression(pattern: "^[a-z][a-z0-9A-Z]*")
         let result = regex.firstMatch(

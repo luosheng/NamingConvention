@@ -1,6 +1,6 @@
 import Foundation
 
-final class KebabCaseProcessor: Processor {
+struct KebabCaseProcessor: Processor {
     func match(text: String) -> Bool {
         let pattern = #"^[a-z]+(-[a-z]+)*$"#  // regex pattern for kebab case
         return NSPredicate(format: "SELF MATCHES %@", pattern).evaluate(with: text)
