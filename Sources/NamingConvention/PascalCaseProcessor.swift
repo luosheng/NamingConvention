@@ -8,17 +8,34 @@
 import Foundation
 
 class PascalCaseProcessor: Processor {
-    
-    public func match(text: String) -> Bool {
-        return false
+
+    func match(text: String) -> Bool {
+        let regex = try! NSRegularExpression(pattern: "^[A-Z][a-z0-9A-Z]*")
+        let result = regex.firstMatch(in: text, range: NSRange(location: 0, length: text.utf16.count))
+        return result != nil
     }
-    
-    public func segmented(text: String) -> [String] {
-        return []
+
+    func segmented(text: String) -> [String] {
+        var segments: [String] = []
+        var currentSegment: String = ""
+        for character in text {
+            if character.isUppercase {
+                if !currentSegment.isEmpty {
+                    segments.append(currentSegment.lowercased())
+                }
+                currentSegment = String(character)
+            } else {
+                currentSegment.append(character)
+            }
+        }
+        if !currentSegment.isEmpty {
+            segments.append(currentSegment.lowercased())
+        }
+        return segments
     }
-    
-    public func connected(segments: [String]) -> String {
-        return ""
+
+    func connected(segments: [String]) -> String {
+        return segments.map { $0.capitalized }.joined()
     }
 
 }
